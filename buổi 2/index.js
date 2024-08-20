@@ -2,7 +2,7 @@
 // input arr = ["one", "two", "three"]; text = "number"
 // output newArrAfterChange = ["number: one", ...]
 const themTienTo = (arrInput, txtInput) => {
-    // b1 duyệt mảng 
+    // b1 duyệt mảng
     // b2 gán text vào từng phần tử của arr
     // b3 return mảng mới sau khi map
     let newArrAfterChange = [];
@@ -113,7 +113,7 @@ console.log("find Odd Number", arr.filter(item => item && item % 2 === 1))
 
 
 
-// bài 7 tìm nhân viên có lương cao nhất 
+// bài 7 tìm nhân viên có lương cao nhất
 // const employees = [
 //     { id: 1, name: "John", salary: 2000 },
 //     { id: 2, name: "Jane", salary: 2500 },
@@ -151,12 +151,12 @@ if (sortWorkingDayMaxIsFirst.length > 0) {
 // bài 9 nhóm key theo name
 // const employees = [
 //     { id: 1, name: "John", salary: 2000 },
-//     { id: 2, name: "Jane", salary: 2500 }, 
+//     { id: 2, name: "Jane", salary: 2500 },
 //     { id: 3, name: "Mark", salary: 3000 },
 //     { id: 4, name: "John", salary: 2200 },
 // ];
 
-// ===> 
+// ===>
 // {
 // "John": [
 //     { id: 1, name: "John", salary: 2000 },
@@ -172,3 +172,21 @@ if (sortWorkingDayMaxIsFirst.length > 0) {
 // * nếu key trùng với nhau => gom nhóm data chung 1 array
 // * nếu khác key thì vẫn giữ nguyên data k tác động
 // b3 return output
+const employees = [
+    { id: 1, name: "John", salary: 2000 },
+    { id: 2, name: "Jane", salary: 2500 },
+    { id: 3, name: "Mark", salary: 3000 },
+    { id: 4, name: "John", salary: 2200 },
+];
+
+const groupEmployeeByName = (employees) => {
+    return employees.reduce((result, employee) => {
+        if (!result[employee.name]) {
+            result[employee.name] = [];
+        }
+        result[employee.name].push(employee);
+        return result;
+    }, {})
+};
+
+console.log(groupEmployeeByName(employees))
