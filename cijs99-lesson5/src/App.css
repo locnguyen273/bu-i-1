@@ -27,3 +27,15 @@
   column-gap: 10px;
   padding: 0 16px 16px;
 }
+
+.table-product {
+  width: 70%;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.table-product-txt-empty {
+  text-align: center;
+  margin: 24px;
+}

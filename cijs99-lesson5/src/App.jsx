@@ -1,26 +1,113 @@
 import { useState } from "react";
 import "./App.css";
+import ModalProductEdit from "./components/modalProductEdit";
 
 function App() {
   const [formValue, setFormValue] = useState({
-    id: null,
-    image: null,
-    name: null,
-    type: null,
-    price: null,
-    desc: null
+    id: "",
+    image: "",
+    name: "",
+    type: "phone",
+    price: 0,
+    desc: "",
   });
+
+  const [listProducts, setListProduct] = useState([
+    {
+      id: "1",
+      image:
+        "https://cdn.tgdd.vn/Products/Images/42/303825/iphone-15-plus-512gb-den-2.jpg",
+      name: "ip15 plus",
+      type: "phone",
+      price: 34000000,
+      desc: "Điện thoại iPhone 15 128GB",
+    },
+  ]);
+
+  const [selectedProduct, setSelectedProduct] = useState({});
 
   const handleChangeForm = (event) => {
     setFormValue({
       ...formValue,
       [event.target.name]: event.target.value,
-    })
-  }
+    });
+  };
 
   const handleCreateNewProduct = () => {
-    console.log("formValue", formValue)
-  }
+    let newArrPro = [...listProducts];
+    const newDataItem = {
+      ...formValue,
+      quantity: 1,
+    };
+    newArrPro.push(newDataItem);
+    setListProduct(newArrPro);
+    setFormValue({
+      id: "",
+      image: "",
+      name: "",
+      type: "phone",
+      price: 0,
+      desc: "",
+    });
+  };
+
+  const handleDeleteItem = (proItd) => {
+    let index = listProducts.findIndex((item) => item.id === proItd);
+    if (index !== -1) {
+      // listProducts.splice(index, 1); // hoặc có thể dùng filter
+      let deletedItem = listProducts.filter((item) => item.id !== proItd);
+      setListProduct(deletedItem);
+      handleRenderLisProduct();
+    }
+  };
+
+  const handleUpdateItem = () => {
+    const listProductNotIncludeSelect = listProducts.filter(pro => pro.id !== selectedProduct.id);
+    let newArrUpdate = listProductNotIncludeSelect;
+    newArrUpdate.push(selectedProduct)
+    setListProduct(newArrUpdate);
+  };
+
+  const handleSelectedProduct = (proId) => {
+    const selected = listProducts.find((product) => product.id === proId);
+    setSelectedProduct(selected);
+  };
+
+  const handleRenderLisProduct = () => {
+    return listProducts.map((item, index) => {
+      return (
+        <tr key={item.id}>
+          <td>{index + 1}</td>
+          <td>{item.name}</td>
+          <td>
+            <img src={item.image} alt="..." width={50} />
+          </td>
+          <td>{item.desc}</td>
+          <td>{item.price}</td>
+          <td>{item.quantity}</td>
+          <td className="d-flex gap-2">
+            <button
+              className="btn btn-danger"
+              onClick={() => handleDeleteItem(item.id)}
+            >
+              Delete
+            </button>
+
+            <button
+              type="button"
+              className="btn btn-primary ml-3"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              onClick={() => handleSelectedProduct(item.id)}
+            >
+              Edit
+            </button>
+            {/* <ModalProductEdit /> */}
+          </td>
+        </tr>
+      );
+    });
+  };
 
   return (
     <>
@@ -77,7 +164,7 @@ function App() {
                 name="type"
                 onChange={handleChangeForm}
               >
-                <option selected>Open this select type product</option>
+                <option>Open this select type product</option>
                 <option value="phone">Phone</option>
                 <option value="tablet">Tablet</option>
                 <option value="laptop">Laptop</option>
@@ -111,11 +198,43 @@ function App() {
           </div>
         </div>
         <div className="form-create-product-bottom">
-          <button className="btn btn-primary col-2" onClick={handleCreateNewProduct}>Create</button>
+          <button
+            className="btn btn-primary col-2"
+            onClick={handleCreateNewProduct}
+          >
+            Create
+          </button>
           <button className="btn btn-success col-2">Update</button>
         </div>
       </div>
       {/*end form create product */}
+
+      <table className="table table-product">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {listProducts.length > 0 ? (
+            handleRenderLisProduct()
+          ) : (
+            <p className="table-product-txt-empty">Is Empty</p>
+          )}
+        </tbody>
+      </table>
+      <ModalProductEdit
+        selectedProduct={selectedProduct}
+        handleChangeForm={handleChangeForm}
+        setSelectedProduct={setSelectedProduct}
+        handleUpdateItem={handleUpdateItem}
+      />
     </>
   );
 }
