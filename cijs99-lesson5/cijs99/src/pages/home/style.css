@@ -1,0 +1,16 @@
+.home-page {
+  margin: 40px 0;
+}
+
+.list-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  height: 600px;
+  overflow-y: auto;
+}
+
