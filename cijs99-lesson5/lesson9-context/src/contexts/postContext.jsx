@@ -12,15 +12,25 @@ export const PostProvider = ({ children }) => {
     setIsLoading(true);
     const getListPosts = await getAllListPosts();
     setPosts(getListPosts);
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000)
   };
+
+  const handleDeleteById = (postId) => {
+    setIsLoading(true);
+    setPosts(posts.filter(post => post.id !== postId))
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000)
+  }
 
   useEffect(() => {
     getAllPosts();
   }, []);
 
   return (
-    <PostContext.Provider value={{ isLoading, setIsLoading, posts, setPosts }}>
+    <PostContext.Provider value={{ isLoading, setIsLoading, posts, setPosts, handleDeleteById }}>
       {children}
     </PostContext.Provider>
   );

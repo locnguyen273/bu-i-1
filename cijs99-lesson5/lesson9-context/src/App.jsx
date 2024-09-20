@@ -9,13 +9,19 @@ function App() {
       <h3 className="text-center my-5">Demo Context & Call API By Fetch</h3>
       <PostProvider>
         <PostContext.Consumer>
-          {({ isLoading, posts }) => {
+          {({ isLoading, posts, handleDeleteById }) => {
             return isLoading ? (
               <Spinner />
             ) : (
               <PostList>
                 {posts.map((post) => {
-                  return <PostListItem key={post.id} {...post} />;
+                  return (
+                  <PostListItem 
+                    key={post.id} 
+                    {...post} 
+                    handleDeleteClicked={handleDeleteById}
+                  />
+                );
                 })}
               </PostList>
             );
