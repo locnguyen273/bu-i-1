@@ -4,6 +4,7 @@ import DetailPage from './pages/detailPage';
 import HomePage from './pages/homePage';
 import { Routes, Route} from "react-router-dom";
 import NotFoundPage from './pages/notFoundPage';
+import DemoCustomHook from './pages/demoCustomHook';
 
 function App() {
   
@@ -14,6 +15,7 @@ function App() {
         <Route path='' element={<HomePage />} /> 
         <Route path='detail/:id' element={<DetailPage />} /> 
         <Route path='category' element={<CategoryPage />} /> 
+        <Route path='demo-custom-hook' element={<DemoCustomHook />} />
         {/* <Route path='*' element={<Navigate to={"/"} />} />  */}
         <Route path='*' element={<NotFoundPage />} /> 
       </Routes>

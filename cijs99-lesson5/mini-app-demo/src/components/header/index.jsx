@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Header = () => {
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,6 +29,11 @@ const Header = () => {
             <li className="nav-item active">
               <Link className="nav-link" to={"/category"}>
                 Category Page
+              </Link>
+            </li>
+            <li className="nav-item active">
+              <Link className="nav-link" to={"/demo-custom-hook"}>
+                Demo Custom Hook
               </Link>
             </li>
           </ul>
